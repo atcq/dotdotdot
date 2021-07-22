@@ -1,0 +1,28 @@
+general {
+  output_format = "i3bar"
+  colors = true
+  color_good = "#50FA7B"
+  color_degraded = "#F1FA8C"
+  color_bad = "#FF5555"
+  interval = 5
+}
+
+order += "arch_updates"
+order += "time"
+order += "battery_level"
+
+battery_level {
+	on_click 1 = 'exec dunstify "Test" "Now\nBattery goes here!"'
+	min_width = 25
+	align = center
+}
+
+time {
+	format = "%I:%M%P"
+}
+
+arch_updates {
+	cache_timeout = 3600
+	hide_if_zero = True
+	format = "{total}/{aur}"
+}

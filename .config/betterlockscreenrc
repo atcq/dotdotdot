@@ -1,0 +1,19 @@
+# configuration file for betterlockscreen
+
+insidecolor=8be9fdff
+ringcolor=bd93f9ff
+keyhlcolor=ff79c5ff
+bshlcolor=ff79c6ff
+separatorcolor=00000000
+insidevercolor=50fa7bff
+insidewrongcolor=ffffffff
+ringvercolor=ffffffff
+ringwrongcolor=ff5555ff
+verifcolor=f1fa8cff
+timecolor=8be9fdff
+datecolor=ff79c6ff
+loginbox=00000066
+font="Hack"
+locktext='Enter Password  '
+lock_timeout=5
+time_format='%I:%M%P'
