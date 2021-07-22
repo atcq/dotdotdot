@@ -1,0 +1,45 @@
+
+# include /etc/inputrc for compability
+$include /etc/inputrc
+
+# use vi style editing for readline
+set editing-mode vi
+
+# search history bindings for vi mode
+$if mode=vi
+	set keymap vi-command
+#	# keybinds for vi-command mode
+	"\e[A": history-search-backward
+	"\e[B": history-search-forward
+	j: history-search-backward
+	k: history-search-forward
+	set keymap vi-insert
+#	# keybinds for vi-insert mode
+	"\e[A": history-search-backward
+	"\e[B": history-search-forward
+$endif
+
+# show vi mode
+set show-mode-in-prompt on
+# show vi mode by cursor
+$if term=linux
+	set vi-ins-mode-string \1\e[?0c\2
+	set vi-cmd-mode-string \1\e[?8c\2
+$else
+	set vi-ins-mode-string \1\e[6 q\2
+	set vi-cmd-mode-string \1\e[2 q\2
+$endif
+
+# color files by types
+set colored-stats on
+# append char to indicate type
+set visible-stats on
+# mark symlinked directories
+set mark-symlinked-directories on
+# color the common prefix
+set colored-completion-prefix on
+# color the common prefix in menu-complete
+set menu-complete-display-prefix on
+
+# don't print control chars (e.g. Ctrl+c -> ^C
+set echo-control-characters off
