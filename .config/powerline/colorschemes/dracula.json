@@ -9,7 +9,7 @@
 		"critical:failure":           { "fg": "dracula:bwhite", "bg": "dracula:red", "attrs": [] },
 		"critical:success":           { "fg": "dracula:black", "bg": "dracula:bgreen", "attrs": [] },
 		"background":                 { "fg": "white", "bg": "gray0", "attrs": [] },
-		"background:divider":         { "fg": "gray5", "bg": "gray0", "attrs": [] },
+		"background:divider":         { "fg": "dracula:black", "bg": "dracula:bblack", "attrs": [] },
 		"session":                    { "fg": "black", "bg": "gray10", "attrs": ["bold"] },
 		"date":                       { "fg": "gray8", "bg": "gray2", "attrs": [] },
 		"time":                       { "fg": "gray10", "bg": "gray2", "attrs": ["bold"] },
