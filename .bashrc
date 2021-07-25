@@ -29,6 +29,7 @@ source /usr/share/doc/pkgfile/command-not-found.bash
 # export some env variables
 export TERMINAL=kitty
 export TERM=kitty
+export EDITOR=nvim
 
 # alias definition
 alias ls="colorls --dark"

@@ -12,12 +12,13 @@ order += "time"
 order += "battery_level"
 
 battery_level {
-	on_click 1 = 'exec dunstify "Test" "Now\nBattery goes here!"'
+	on_click 1 = 'exec $HOME/.config/rofi/bin/applet_battery'
 	min_width = 25
 	align = center
 }
 
 time {
+	on_click 1 = 'exec --no-startup-id $HOME/.config/rofi/bin/applet_time'
 	format = "%I:%M%P"
 }
 
