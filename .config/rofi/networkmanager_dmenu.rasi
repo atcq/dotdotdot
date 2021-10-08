@@ -8,23 +8,14 @@
  */
 
 configuration {
-    lines:						15;
-    columns:						1;
     font: 						"Hack Nerd Font Mono 9";
-    bw: 						0;
     location: 						3;
-    padding: 						0;
     fixed-num-lines: 					true;
     show-icons: 					false;
     sidebar-mode: 					true;
-    separator-style: 					"none";
-    hide-scrollbar: 					false;
-    fullscreen: 					false;
-    fake-transparency: 					false;
     scroll-method: 					1;
     window-format: 					"[{w}] ··· {c} ···   {t}";
     click-to-exit: 					true;
-    show-match: 					false;
     combi-hide-mode-prefix: 				false;
     display-window: 					"";
 /*
@@ -89,6 +80,8 @@ mainbox {
 }
 
 listview {
+    lines:                                              15;
+    columns:                                            1;
     fixed-height: 					0;
     border: 						0px;
     border-color: 					@ac;
@@ -96,6 +89,11 @@ listview {
     scrollbar: 						false;
     padding: 						15px 5px 0px 5px;
 }
+
+element-text, element-icon {
+    background-color:                                   #00000000;
+    text-color:                                         inherit;
+  }
 
 element {
     border: 						0px;

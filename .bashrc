@@ -34,6 +34,6 @@ export EDITOR=nvim
 # alias definition
 alias ls="colorls --dark"
 # show archlinux new, run a system upgrade and update py3status
-alias upgrade-yay="yay -Pw && yay -Syu && killall -s USR1 py3status"
+alias upgrade-yay="yay -Pw && yay -Syu"
 # git alias for .files
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
