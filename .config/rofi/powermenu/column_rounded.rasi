@@ -18,7 +18,17 @@ configuration {
     sidebar-mode: 					false;
 }
 
-@import "styles/colors.rasi"
+// @import "styles/dracula.rasi"
+
+* {
+    background:		#44475A;
+    background-alt:	#6772A4;
+    foreground:		#8BE9FDA6;
+    border:		#FF79C6;
+    border-alt:		#69FF94;
+    selected:		#21222C99;
+    urgent:		#FF5555;
+}
 
 window {
     transparency:					"real";
@@ -27,11 +37,11 @@ window {
     border:						2px 2px 2px 0px;
     border-color:					@border;
     border-radius:					0px 5px 5px 0px;
-    height:						740px;
+    height:						728px;
     width:						12.25%;
     location:						west;
     x-offset:						0;
-    y-offset:						-14px;
+    y-offset:						0;
 }
 
 prompt {
