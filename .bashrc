@@ -25,6 +25,7 @@ POWERLINE_BASH_SELECT=1
 
 # add command not found functionality
 source /usr/share/doc/pkgfile/command-not-found.bash
+source /usr/share/bash-completion/bash_completion
 
 # export some env variables
 export TERMINAL=kitty
@@ -33,7 +34,7 @@ export EDITOR=nvim
 
 # alias definition
 alias ls="colorls --dark"
-# show archlinux new, run a system upgrade and update py3status
+# show archlinux new, run a system upgrade
 alias upgrade-yay="yay -Pw && yay -Syu"
 # git alias for .files
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
