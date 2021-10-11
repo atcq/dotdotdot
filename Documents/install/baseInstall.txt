@@ -132,14 +132,13 @@
 
       Download yay from the AUR and build it:
 
-        $ mkdir -p .AUR                        # tmp folder for AUR packages
-        $ cd .AUR
+        $ cd /tmp                              # build in /tmp
         $ git clone https://aur.archlinux.org/yay.git
         $ cd yay
         # pacman -S go                         # build dependecy for yay
         $ makepkg PKGBUILD
         # pacman -U yay-*ver*.pkg.tar.zst      # version depends on build date
-        # pacman -Rnc go                       # if you want to remove build dependency
+        # yay -Rnc go                       # if you want to remove build dependency
 
 
 4.    Install the rest of the packages
