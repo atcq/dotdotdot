@@ -46,20 +46,5 @@ hooks.add("install_plugins", function(use)
   use {
     -- LSP installer for local LSP servers and ease of use!
     "williamboman/nvim-lsp-installer",
-    config = function()
-      local lsp_installer = require "nvim-lsp-installer"
-
-      lsp_installer.on_server_ready(function(server)
-        local opts = {
-          on_attach = attach,
-          capabilities = capabilities,
-          flags = {},
-          settings = {},
-        }
-
-        server:setup(opts)
-        vim.cmd [[ do User LspAttachBuffers ]]
-      end)
-    end,
   }
 end)

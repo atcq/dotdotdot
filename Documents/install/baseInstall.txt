@@ -1,0 +1,161 @@
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
+|                              Arch Linux Base Installation                                |
+|==========================================================================================|
+
+
+1.    Install Base Arch Linux System
+
+      Install via latest install iso, archinstall or manual works. Don't forget to do the
+      post install steps when doing it through archinstall, it might get some stuff wrong
+      and it helps to just check what was done!
+
+1.1     With manual installation don't forget to make a normal user and install and setup
+        some utilities:
+
+          # pacman -S networkmanager sudo vi grub efibootmgr
+
+        Create a new user, add them to wheel for sudo and create a password:
+
+          # useradd -m -G wheel -s /bin/bash atcq
+          # passwd atcq
+
+        Configure sudo, use wheel group for access:
+
+          # visudo
+
+          |++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
+          |/etc/sudoers                                                                    |
+          |================================================================================|
+          | ##                                                                             |
+          | ## User privilege specification                                                |
+          | ##                                                                             |
+          | root ALL=(ALL) ALL                                                             |
+          |                                                                                |
+          | ## Uncomment to allow members of group wheel to execute any command            |
+          | %wheel ALL=(ALL) ALL                                                           |
+          |                                                                                |
+          | ## Same thing without a password                                               |
+          | # %wheel ALL=(ALL) NOPASSWD: ALL                                               |
+          |================================================================================|
+
+        Enable networkmanager:
+
+          # systemctl enable NetworkManager
+
+        Install grub and create main configuration:
+
+          # grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+
+        Create the configuration file:
+
+          # grub-mkconfig -o /boot/grub/grub.cfg
+
+        To probe for other OSs (e.g. Windows) install os-prober and rerun grub-mkconfig,
+        if os-prober is not executed add/uncomment GRUB_DISABLE_OS_PROBER=false in 
+        /etc/default/grub . If Windows is still not found installing ntfs-3g and mounting
+        the partitions may help.
+
+
+2.    Install git and get dot files (including this text file)
+
+      Install git:
+
+        # pacman -S git
+
+      Run dotSetup script from snippet:
+
+        $ curl -Lks http://bit.do/dotSetup | /bin/bash
+
+      Remove the backup directory if not needed anymore:
+
+        $ rm -rf .config-backup
+
+
+3.    Get ready for AUR and install yay as an AUR helper
+
+      Install basic development packages to use makepkg:
+
+        # pacman -S --needed base-devel
+
+3.1     Configure makepkg
+
+        Install neovim:
+
+          # pacman -S neovim
+
+        Open /etc/makepkg.conf and adjust the following parts, to use all multi core
+        core compression make sure to install all the needed packages:
+
+          # pacman -S pigz pbzip2 zstd xz
+
+        You can set a variable in /etc/makepkg.conf for the number of cores to use by
+        declaring CORES=$(($(nproc)-1)) for all cores but one or CORES=$(nproc) to use all
+        cores available
+
+        |++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
+        | /etc/makepkg.conf                                                                |
+        |==================================================================================|
+        | # Automatically detect and enable safe optimizations: Remove any -march and      |
+        | -mtuneflags then add -march=native || e.g.                                       |
+        |                                                                                  |
+        | CFLAGS="-march=native -O2 -pipe -fno-plt"                                        |
+        | CXXFLAGS="${CFLAGS}"                                                             |
+        |                                                                                  |
+        | # Rust optimizations: Add -C target-cpu=native to the flags || e.g.              |
+        |                                                                                  |
+        | RUSTFLAGS="-C opt-level=2 -C target-cpu=native"                                  |
+        |                                                                                  |
+        | # Parallel compilation: Use multiple cores for compilation. To use all your CPUs |
+        | # cores you can use $(nproc) to determine how many cores your cpu has,           |
+        | # $(($(nproc)-1)) to use all cores but one (i prefer to use this one to have the |
+        | # system responsive with large compilations).                                    |
+        |                                                                                  |
+        | CORES=$(($(nproc)-1))                                                            |
+        |                                                                                  |
+        | MAKEFLAGS="-j$CORES"                                                             |
+        |                                                                                  |
+        | # Multi core compression: set multicore compression for all packers that support |
+        | # it                                                                             |
+        |                                                                                  |
+        | COMPRESSXZ=(xz -c -z --threads=$CORES -)                                         |
+        | COMPRESSGZ=(pigz -c -f -n -p $CORES)                                             |
+        | COMPRESSBZ2=(pbzip2 -c -f -p$CORES)                                              |
+        | COMPRESSZST=(zstd -c -z -q --threads=$CORES -)                                   |
+        |==================================================================================|
+
+        Building in memory may improve build times, can be done for only one run by setting
+        
+          $ BUILDDIR=/tmp/makepkg makepkg
+      
+        for a persistent configuration we can set the BUILDDIR option in makepkg.conf by 
+        uncommenting the BUILDDIR variable
+
+      Download yay from the AUR and build it:
+
+        $ mkdir -p .AUR                        # tmp folder for AUR packages
+        $ cd .AUR
+        $ git clone https://aur.archlinux.org/yay.git
+        $ cd yay
+        # pacman -S go                         # build dependecy for yay
+        $ makepkg PKGBUILD
+        # pacman -U yay-*ver*.pkg.tar.zst      # version depends on build date
+        # pacman -Rnc go                       # if you want to remove build dependency
+
+
+4.    Install the rest of the packages
+
+      Install the rest of the required packages for a base desktop experience (X, i3-gaps,
+      polybar, rofi, dunst, etc.)
+      Packages are located in Documents/install/packages.txt we pipe them to yay and let it
+      run:
+
+        $ yay --removemake --needed -S - < Documents/install/packages.txt
+
+      To keep make dependencies omit the --removemake option
+
+
+5.    Post installation steps 
+
+      command-not-found functionality:
+        # pkgfile -u
+        $ systemctl enable pkgfile-update.timer
