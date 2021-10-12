@@ -54,7 +54,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -5
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +5
 # lock the screen
-bindsym XF86ScreenSaver exec --no-startup-id betterlockscreen -l blur
+bindsym $mod+Ctrl+l exec --no-startup-id betterlockscreen -l blur
 # show/hide polybar
 bindsym $mod+m exec --no-startup-id polybar-msg cmd toggle && xdo raise -N Polybar
 
@@ -212,7 +212,7 @@ bindsym $mod+r mode "res"
 #
 #	# status	   border  bground  text
 #
-#        focused_workspace  #F1FA8C #6272A4 #FF79C6
+#       focused_workspace  #F1FA8C #6272A4 #FF79C6
 #	active_workspace   #F1FA8C #6272A4 #FF79C6
 #	inactive_workspace #282A36 #44475A #8BE9FD
 #	urgent_workspace   #FF5555 #F1FA8C #FF5555
